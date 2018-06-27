@@ -19,12 +19,16 @@ it('has a text area and a button', () => {
 });
 
 it('has a textarea that users can type in', () => {
+    const newComment = 'new comment';
+
     wrapped.find('textarea').simulate('change', {
         target : {
-            value : 'new comment'
+            value : newComment
         }
     });
 
     // force the component update
     wrapped.update();
+
+    expect(wrapped.find('textarea').prop('value')).toEqual(newComment);
 });
