@@ -18,20 +18,22 @@ it('has a text area and a button', () => {
     expect(wrapped.find('button').length).toEqual(1);
 });
 
-it('has a textarea that users can type in', () => {
+describe('the text area', () => {
     const newComment = 'new comment';
 
-    typeNewComment(newComment);
+    beforeEach(() => {
+        typeNewComment(newComment);
+    });
 
-    expect(wrapped.find('textarea').prop('value')).toEqual(newComment);
-});
+    it('has a textarea that users can type in', () => {
+        expect(wrapped.find('textarea').prop('value')).toEqual(newComment);
+    });
+    
+    it('when form is submitted, textearea gets emptied', () => {
+        submitComment();
 
-it('when form is submitted, textearea gets emptied', () => {
-    typeNewComment('new comment');
-
-    submitComment();
-
-    expect(wrapped.find('textarea').prop('value')).toEqual('');
+        expect(wrapped.find('textarea').prop('value')).toEqual('');
+    });
 });
 
 function typeNewComment(newComment) {
