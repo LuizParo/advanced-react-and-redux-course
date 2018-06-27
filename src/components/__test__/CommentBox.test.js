@@ -21,6 +21,20 @@ it('has a text area and a button', () => {
 it('has a textarea that users can type in', () => {
     const newComment = 'new comment';
 
+    typeNewComment(newComment);
+
+    expect(wrapped.find('textarea').prop('value')).toEqual(newComment);
+});
+
+it('when form is submitted, textearea gets emptied', () => {
+    typeNewComment('new comment');
+
+    submitComment();
+
+    expect(wrapped.find('textarea').prop('value')).toEqual('');
+});
+
+function typeNewComment(newComment) {
     wrapped.find('textarea').simulate('change', {
         target : {
             value : newComment
@@ -29,6 +43,9 @@ it('has a textarea that users can type in', () => {
 
     // force the component update
     wrapped.update();
+}
 
-    expect(wrapped.find('textarea').prop('value')).toEqual(newComment);
-});
+function submitComment() {
+    wrapped.find('form').simulate('submit');
+    wrapped.update();
+}
