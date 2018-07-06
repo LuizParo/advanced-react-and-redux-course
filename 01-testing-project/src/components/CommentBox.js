@@ -5,22 +5,29 @@ import * as actions from 'actions';
 
 class CommentBox extends Component {
 
-    constructor() {
-        super();
+    state = {
+        comment : ''
+    };
 
-        this.state = {
-            comment : ''
-        };
-
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+    componentDidMount() {
+        this.shouldNavigateAway();
     }
 
-    handleChange(event) {
+    componentDidUpdate() {
+        this.shouldNavigateAway();
+    }
+
+    shouldNavigateAway = () => {
+        if (!this.props.auth) {
+            console.log('I NEED TO LEAVE!!!');
+        }
+    }
+
+    handleChange = event => {
         this.setState({ comment : event.target.value });
     }
 
-    handleSubmit(event) {
+    handleSubmit = event => {
         event.preventDefault();
 
         this.props.saveComment(this.state.comment);
@@ -45,4 +52,10 @@ class CommentBox extends Component {
     };
 }
 
-export default connect(null, actions)(CommentBox);
+function mapStateToProps(state) {
+    return {
+        auth : state.auth
+    };
+}
+
+export default connect(mapStateToProps, actions)(CommentBox);
