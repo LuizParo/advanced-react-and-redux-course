@@ -7,4 +7,10 @@ export default ({ dispatch }) => next => action => {
     }
 
     // If it does, then wait for it to resolve.
+    // We want to wait for the promise to resolve (get its data!!!) and then create
+    // a new action with that data and dispatch it.
+    action.payload.then((response => {
+        const newAction = { ...action, payload : response };
+        dispatch(newAction);
+    }));
 };
