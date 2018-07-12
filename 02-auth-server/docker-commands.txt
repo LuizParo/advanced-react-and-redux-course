@@ -1,2 +1,5 @@
+# Creating the mongodb container
 docker run -it -d -p 27017:27017 --name advanced-react-and-redux-udemy-course -v $(pwd)/data/db:/data/db mongo --noauth
+
+# Accessing the mongodb shell
 docker exec -it advanced-react-and-redux-udemy-course mongo local
