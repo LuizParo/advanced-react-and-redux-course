@@ -12,9 +12,20 @@ const localOptions = {
 };
 
 const localLogin = new LocalStrategy(localOptions, (email, password, done) => {
-    // Verify this username and password, call done with the user
-    // if it is the correct username and password
+    // Verify this email and password, call done with the user
+    // if it is the correct email and password
     // otherwise, call done with false
+    User.findOne({ email }, (err, user) => {
+        if (err) {
+            return done(err, false);
+        }
+
+        if (!user) {
+            done(null, false);
+        }
+
+        // compare passwords - is `password` equal to user.pasword?
+    });
 });
 
 // Setup options for JWT Strategy
