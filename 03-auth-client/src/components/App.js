@@ -2,10 +2,10 @@ import React from 'react';
 
 import Header from './Header';
 
-const App = props => (
+const App = ({ children }) => (
     <div>
         <Header />
-        Hi, I'm the app
+        {children}
     </div>
 );
 
